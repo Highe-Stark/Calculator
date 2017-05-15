@@ -1,14 +1,15 @@
 #pragma once
-#ifdef TOKEN_h
-#define TOKEN_h
-#endif TOKEN_h
-#include<string>
-#include<vector>
-#include"DIYFunction.h"
+#ifndef TOKEN_H
+#define TOKEN_H
+
+#include <string>
+#include <vector>
+#include "Function.h"
+#include <stdexcept>
+using std::runtime_error;
 using std::vector;
 using std::string;
 double M;
-
 
 class Token
 {
@@ -18,7 +19,7 @@ public:
 	//else token.ctg = 8, means the value is a number;
 	char ctg;
 	double value;
-	Token();
+	Token() {}
 	Token(char ch, double v): ctg(ch), value(v) {}
 };
 
@@ -60,6 +61,13 @@ public:
 				++ix;
 				break;
 			}
+			case 's': {
+				if (instr[ix + 1] == 'q' && instr[ix + 2] == 'r' && instr[ix + 3] == 't') {
+					Token temp_tok('s', 0);
+					token_stream.push_back(temp_tok);
+					ix += 4;
+					break;
+				}}
 			case ' ':case '\t':
 				++ix;
 				break;
@@ -101,3 +109,5 @@ void put_back(TokenStream& ts)
 {
 	ts.point--;
 }
+
+#endif TOKEN_H

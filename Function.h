@@ -1,15 +1,16 @@
 #pragma once
-#ifdef DIYFUNCTION_H
+#ifndef DIYFUNCTION_H
 #define DIYFUNCTION_H
-#endif DIYFUNCTION_H
-#include<stdexcept>
-#include<string>
-#include<math.h>
+
+#include <stdexcept>
+#include <string>
+#include <math.h>
+#include "Function.h"
 using std::string;
 using std::runtime_error;
+
 string extract(string rawstr, string::size_type beg, string::size_type en);
 long int fac(double i);
-
 
 string extract(string rawstr, string::size_type beg, string::size_type en)
 {
@@ -30,3 +31,5 @@ long int fac(double i)
 		f *= j;
 	return f;
 }
+
+#endif DIYFUNCTION_H

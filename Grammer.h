@@ -1,22 +1,20 @@
 #pragma once
-#ifdef GRAMMER_H
+#ifndef GRAMMER_H
 #define GRAMMER_H
-#endif GRAMMER_H
 
-#include<iostream>
-#include<stdexcept>
-#include<math.h>
-#include"Token.h"
-#include"DIYFunction.h"
+#include <iostream>
+#include <stdexcept>
+#include <math.h>
+#include "Grammer.h"
+#include "Token.h"
+#include "Function.h"
 using std::cout;
 using std::endl;
 using std::runtime_error;
 
-double Term(TokenStream& ts);
 double Expression(TokenStream &ts);
+double Term(TokenStream& ts);
 double Primary(TokenStream &ts);
-
-
 
 double Expression(TokenStream &ts)
 {
@@ -71,9 +69,9 @@ double Term(TokenStream& ts)
 			left /= right;
 			if (ts.eof()) return left;
 			t = get_token(ts);
-			break; 
+			break;
 		}
-		case '%':{
+		case '%': {
 			long int int_left = static_cast<int>(left);
 			if (abs(int_left - left) > 10e-6) throw runtime_error("oprands is not an integer");
 			double temp = Primary(ts);
@@ -85,7 +83,7 @@ double Term(TokenStream& ts)
 			left = int_left;
 			if (ts.eof()) return left;
 			t = get_token(ts);
-			break; 
+			break;
 		}
 		default:
 			put_back(ts);
@@ -99,7 +97,7 @@ double Primary(TokenStream &ts)
 	Token t = get_token(ts);
 	double left;
 	switch (t.ctg) {
-	//if token is a number
+		//if token is a number
 	case '8':
 		left = t.value;
 		if (ts.eof()) return left;
@@ -110,9 +108,9 @@ double Primary(TokenStream &ts)
 			if (ts.eof()) return left;
 			t = get_token(ts);
 		}
-		if(t.ctg != '!') put_back(ts);
+		if (t.ctg != '!') put_back(ts);
 		return left;
-	//if token is a '(', then evaluate the expression in the bracket.
+		//if token is a '(', then evaluate the expression in the bracket.
 	case '(':
 		left = Expression(ts);
 		//get the ')'
@@ -130,16 +128,22 @@ double Primary(TokenStream &ts)
 		}
 		if (t.ctg != '!') put_back(ts);
 		return left;
-	//if a series of + is detected
+		//if a series of + is detected
 	case '+':
 		left = Primary(ts);
 		return left;
-	//if a series of - is detected
+		//if a series of - is detected
 	case '-':
 		left = -Primary(ts);
+		return left;
+	case 's':
+		left = Primary(ts);
+		if (left < 0) throw runtime_error("sqrt must be positive");
+		left = sqrt(left);
 		return left;
 	default:
 		// some unidentified use.
 		throw runtime_error("Unkown identifier");
 	}
 }
+#endif GRAMMER_H

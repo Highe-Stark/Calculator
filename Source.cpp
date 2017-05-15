@@ -1,15 +1,14 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include"Token.h"
-#include"DIYFunction.h"
-#include"Grammer.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include "Token.h"
+#include "Function.h"
+#include "Grammer.h"
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
 using std::string;
-//double M;
 
 int main()
 {
