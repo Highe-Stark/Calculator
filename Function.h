@@ -1,6 +1,6 @@
 #pragma once
-#ifndef DIYFUNCTION_H
-#define DIYFUNCTION_H
+#ifndef FUNCTION_H
+#define FUNCTION_H
 
 #include <stdexcept>
 #include <string>
@@ -12,6 +12,7 @@ using std::runtime_error;
 string extract(string rawstr, string::size_type beg, string::size_type en);
 long int fac(double i);
 
+//    >extract information from a string by beginnng index and end index
 string extract(string rawstr, string::size_type beg, string::size_type en)
 {
 	string prodt = "";
@@ -21,6 +22,7 @@ string extract(string rawstr, string::size_type beg, string::size_type en)
 	return prodt;
 }
 
+//    >factorial function
 long int fac(double i)
 {
 	long f(1);
@@ -32,4 +34,4 @@ long int fac(double i)
 	return f;
 }
 
-#endif DIYFUNCTION_H
+#endif FUNCTION_H

@@ -1,15 +1,12 @@
 #pragma once
-#ifndef TOKEN_H
-#define TOKEN_H
 
-#include <string>
-#include <vector>
-#include "Function.h"
-#include <stdexcept>
-using std::runtime_error;
+#include<string>
+#include<vector>
+#include"Function.h"
 using std::vector;
 using std::string;
 double M;
+
 
 class Token
 {
@@ -25,26 +22,24 @@ public:
 
 class TokenStream
 {
+
 public:
 	vector<Token> token_stream;
 	vector<Token>::size_type point;
-	void con_stream(string &instr)
+
+	//    >TokenStream can't be copied;
+	TokenStream(const TokenStream& other) = delete;
+	TokenStream& operator=(const TokenStream& other) = delete;
+
+	//    >construct token stream using a string
+	TokenStream(string &instr):point(0)
 	{
-		point = 0;
 		
 		string::size_type ix = 0;
 		while (ix != instr.size()) {
 			switch (instr[ix]) {
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '6':
-			case '7':
-			case '8':
-			case '9':
-			case '0':
+			case '1':case '2':case '3':case '4':case '5':
+			case '6':case '7':case '8':case '9':case '0':
 			{	string::size_type iy = ix + 1;
 				while (instr[iy] == '1' || instr[iy] == '2' || instr[iy] == '3' || instr[iy] == '4' ||
 					instr[iy] == '5' || instr[iy] == '6' || instr[iy] == '7' || instr[iy] == '8' ||
@@ -81,7 +76,8 @@ public:
 				Token temp_token('8', M);
 				token_stream.push_back(temp_token);
 				++ix;
-				break; }
+				break; 
+			}
 			default:
 				ix++;
 			}
@@ -90,7 +86,7 @@ public:
 	//func con_stream ends.
 	bool eof()
 	{
-		if (point == token_stream.size())  //point == token_stream.size() - 1 || 
+		if (point == token_stream.size())  //point == token_stream.size() - 1
 			return true;
 		else return false;
 	}
@@ -109,5 +105,3 @@ void put_back(TokenStream& ts)
 {
 	ts.point--;
 }
-
-#endif TOKEN_H

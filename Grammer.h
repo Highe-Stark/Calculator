@@ -16,8 +16,11 @@ double Expression(TokenStream &ts);
 double Term(TokenStream& ts);
 double Primary(TokenStream &ts);
 
+//    >use recursion to evaluate an expression
+
 double Expression(TokenStream &ts)
 {
+	if (ts.eof()) return 0;
 	double left = Term(ts);
 	if (ts.eof()) return left;
 	Token t = get_token(ts);
