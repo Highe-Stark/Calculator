@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <string>
-#include <math.h>
+#include <cmath>
 #include "Function.h"
 using std::string;
 using std::runtime_error;
